@@ -1,6 +1,7 @@
 package HomeWork1;
 
 public class FirstClass {
+    
     public static void main(String[] args) {
         byte b = 0;                 // 8 бит -128 .. 127
         short s = 0;                // 16 бит -32768 .. 32767
