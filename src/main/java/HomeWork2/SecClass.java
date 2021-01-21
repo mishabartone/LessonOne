@@ -15,7 +15,7 @@ public class SecClass {
         }
 
         // 2
-        int[] arrayTwo = new int[8];
+        int[] arrayTwo = {0, 3, 6, 9, 12, 15, 18, 21};
         for (int i = 0; i < arrayTwo.length; i++) {
             if(i == 0){
                 arrayTwo[i] = 0;
