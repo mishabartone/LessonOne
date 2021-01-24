@@ -123,9 +123,7 @@ public class FourClass {
                 }
             }
         }
-
         return false;
-
     }
 
     private static void humanTurn() {
