@@ -1,4 +1,4 @@
-package ClassPack;
+package Lectures.ClassPack;
 
 public class Cat {
 
