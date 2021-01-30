@@ -3,6 +3,7 @@ package HomeWork6;
 public class Main {
 
     public static void main(String[] args) {
+
         Dog muhtar = new Dog("Muhtar");
         Dog rex = new Dog("Rex");
 
@@ -20,6 +21,7 @@ public class Main {
 
         igor.run(100);
         igor.swim(1);
+        
     }
 
 }
