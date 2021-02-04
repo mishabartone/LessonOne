@@ -21,7 +21,7 @@ public class Main {
 
         igor.run(100);
         igor.swim(1);
-        
+
     }
 
 }
