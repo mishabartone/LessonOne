@@ -12,12 +12,14 @@ public class Main {
         Map<String, Integer> wordsMap = new HashMap<>();
 
         for (String word : words){
+
             if (!wordsMap.containsKey(word)){
                 wordsMap.put(word, 1);
             } else {
                 int curValue = wordsMap.get(word);
                 wordsMap.put(word, ++curValue);
             }
+
         }
 
         for(Map.Entry<String, Integer> item : wordsMap.entrySet()){

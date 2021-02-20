@@ -17,7 +17,6 @@ public class PhoneCataloque {
     public List<String> get(String surname){
 
         List<String> phoneList = new ArrayList<>();
-
         Set<Map.Entry<String, String>> entrySet = cataloque.entrySet();
 
         for (Map.Entry<String, String> pair : entrySet) {
