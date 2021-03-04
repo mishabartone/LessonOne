@@ -79,7 +79,6 @@ public class EchoClient extends JFrame {
                 String msg = msgInputField.getText();
                 chatArea.append("Client: " + msg);
                 chatArea.append("\n");
-
                 out.writeUTF(msg);
                 msgInputField.setText("");
                 msgInputField.grabFocus();
