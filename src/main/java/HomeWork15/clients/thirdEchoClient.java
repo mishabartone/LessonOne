@@ -1,4 +1,4 @@
-package HomeWork15.сlients;
+package HomeWork15.clients;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,84 +12,87 @@ import java.net.Socket;
 
 public class thirdEchoClient extends JFrame  {
 
-    private final static String IP_ADDRESS = "localhost"; //127.0.0.1 ip address
-    private final static int SERVER_PORT = 8081;
+    private final Integer SERVER_PORT = 8081;
+    private final String SERVER_ADDRESS = "localhost";
+    private Socket socket;
+    DataInputStream dis;
+    DataOutputStream dos;
+    boolean isAuthorized = false;
+    String nickname;
 
     private JTextField msgInputField;
     private JTextArea chatArea;
 
-    private Socket socket;
-    private DataInputStream dis;
-    private DataOutputStream dos;
-
-    private boolean isAuthorized;
-
     public thirdEchoClient() {
         try {
             connection();
-        } catch (IOException ignored) {
-            ignored.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         prepareGUI();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new thirdEchoClient();
-        });
-    }
-
-    public boolean isAuthorized() {
-        return isAuthorized;
-    }
-
-    public void setAuthorized(boolean authorized) {
-        isAuthorized = authorized;
-    }
-
-    private void connection() throws IOException {
-        socket = new Socket(IP_ADDRESS, SERVER_PORT);
+    public void connection() throws IOException {
+        socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
         dis = new DataInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
-        setAuthorized(false);
-        Thread thread = new Thread(() -> {
+        new Thread(() -> {
             try {
                 while (true) {
-                    String serverMessage = dis.readUTF();
-                    if (serverMessage.startsWith("/authok")) {
-                        setAuthorized(true);
-                        chatArea.append(serverMessage + "\n");
+                    String messageFromServer = dis.readUTF();
+                    if (messageFromServer.startsWith("/authok")) {
+                        isAuthorized = true;
+                        nickname = messageFromServer.substring(8);
+                        chatArea.append(messageFromServer + "\n");
                         break;
                     }
-                    chatArea.append(serverMessage + "\n");
+                    chatArea.append(messageFromServer + "\n");
                 }
-                while (true) {
+
+                while (isAuthorized) {
                     String serverMessage = dis.readUTF();
-                    if (serverMessage.equals("/q")) {
-                        break;
+                    if (serverMessage.contains(": /w ")) {
+                        if (serverMessage.contains(": /w " + nickname)){
+                            String cur = ": /w " + nickname;
+                            int lastind = serverMessage.lastIndexOf(cur);
+                            String who = "(private) " + serverMessage.substring(0, lastind + 2);
+                            serverMessage = serverMessage.substring(lastind + cur.length() + 1);
+                            chatArea.append(who + serverMessage + "\n");
+                        }
+                        continue;
                     }
                     chatArea.append(serverMessage + "\n");
                 }
             } catch (IOException ignored) {
-                ignored.printStackTrace();
+
             }
-            closeConnection();
-        });
-        thread.start();
+        }).start();
     }
 
-    private void sendMessageToServer() {
-        if (!msgInputField.getText().trim().isEmpty()) {
+    public void send() {
+        if (msgInputField.getText() != null && !msgInputField.getText().trim().isEmpty()) {
             try {
-                String messageToServer = msgInputField.getText();
-                dos.writeUTF(messageToServer);
+                dos.writeUTF(msgInputField.getText());
+                if (msgInputField.getText().equals("/end")) {
+                    isAuthorized = false;
+                    closeConnection();
+                }
                 msgInputField.setText("");
             } catch (IOException ignored) {
             }
         }
     }
 
-    private void prepareGUI() {
+    private void closeConnection() {
+        try {
+            dis.close();
+            dos.close();
+            socket.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    public void prepareGUI() {
 
         setBounds(600, 300, 500, 500);
         setTitle("Клиент");
@@ -110,48 +113,28 @@ public class thirdEchoClient extends JFrame  {
         bottomPanel.add(msgInputField, BorderLayout.CENTER);
 
         btnSendMsg.addActionListener(e -> {
-            sendMessageToServer();
+            send();
         });
 
         msgInputField.addActionListener(e -> {
-            sendMessageToServer();
+            send();
         });
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                try {
-                    dos.writeUTF("/q");
-                } catch (IOException ignored) {
-                }
+
             }
         });
 
         setVisible(true);
     }
 
-    private void closeConnection() {
-
-        try {
-            dos.flush();
-        } catch (IOException ignored) {
-        }
-
-        try {
-            dis.close();
-        } catch (IOException ignored) {
-        }
-
-        try {
-            dos.close();
-        } catch (IOException ignored) {
-        }
-
-        try {
-            socket.close();
-        } catch (IOException ignored) {
-        }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new thirdEchoClient();
+        });
     }
 
 }

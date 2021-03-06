@@ -1,4 +1,4 @@
-package HomeWork15;
+package HomeWork15.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MyServer {
 
-    private final int PORT = 8189;
+    private final int PORT = 8081;
 
     private List<ClientHandler> clients;
     private AuthService authService;
