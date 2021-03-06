@@ -1,4 +1,4 @@
-package HomeWork15;
+package HomeWork15.server;
 
 import java.util.ArrayList;
 import java.util.List;

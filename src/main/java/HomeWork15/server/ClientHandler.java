@@ -1,6 +1,4 @@
-package HomeWork15;
-
-import HomeWork15.server.MyServer;
+package HomeWork15.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
