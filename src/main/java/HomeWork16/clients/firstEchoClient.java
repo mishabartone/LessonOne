@@ -1,12 +1,16 @@
-package HomeWork15.clients;
+package HomeWork16.clients;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class firstEchoClient extends JFrame  {
@@ -55,7 +59,33 @@ public class firstEchoClient extends JFrame  {
         setAuthorized(false);
         Thread thread = new Thread(() -> {
             try {
+
+                Calendar c = Calendar.getInstance();
+                c.setTime(new Date()); // Now use today date.
+                c.add(Calendar.SECOND, 3);
+
                 while (true) {
+
+                    Calendar s = Calendar.getInstance();
+                    s.setTime(new Date());
+
+                    new Thread(new Runnable() {
+                        public void run() {
+                            while(!isAuthorized) { //бесконечно крутим
+                                try {
+                                    Thread.sleep(3000); // 3 секунды в милисекундах
+                                    if (c.getTime().compareTo(s.getTime()) == 1 && !isAuthorized){
+                                        closeConnection();
+                                        System.exit(0);
+                                        return;
+                                    }
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }).start();
+
                     String serverMessage = dis.readUTF();
                     if (serverMessage.startsWith("/authok")) {
                         setAuthorized(true);
@@ -67,16 +97,6 @@ public class firstEchoClient extends JFrame  {
                 }
                 while (isAuthorized) {
                     String serverMessage = dis.readUTF();
-                    if (serverMessage.contains(": /w ")) {
-                        if (serverMessage.contains(": /w " + nickname)){
-                            String cur = ": /w " + nickname;
-                            int lastind = serverMessage.lastIndexOf(cur);
-                            String who = "(private) " + serverMessage.substring(0, lastind + 2);
-                            serverMessage = serverMessage.substring(lastind + cur.length() + 1);
-                            chatArea.append(who + serverMessage + "\n");
-                        }
-                        continue;
-                    }
                     chatArea.append(serverMessage + "\n");
                 }
             } catch (IOException ignored) {
