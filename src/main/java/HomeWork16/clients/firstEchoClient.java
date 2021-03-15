@@ -62,7 +62,7 @@ public class firstEchoClient extends JFrame  {
 
                 Calendar c = Calendar.getInstance();
                 c.setTime(new Date()); // Now use today date.
-                c.add(Calendar.SECOND, 3);
+                c.add(Calendar.SECOND, 120);
 
                 while (true) {
 
