@@ -1,4 +1,4 @@
-package HomeWork15.server;
+package HomeWork16;
 
 public interface AuthService {
     void start();

@@ -1,6 +1,4 @@
-package HomeWork15;
-
-import HomeWork15.server.MyServer;
+package HomeWork16;
 
 public class Main {
 

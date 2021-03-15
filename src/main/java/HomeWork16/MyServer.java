@@ -1,4 +1,4 @@
-package HomeWork15.server;
+package HomeWork16;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -59,5 +59,6 @@ public class MyServer {
     public synchronized void subscribe(ClientHandler o) {
         clients.add(o);
     }
+
 
 }

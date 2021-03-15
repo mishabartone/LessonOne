@@ -1,4 +1,4 @@
-package HomeWork15.server;
+package HomeWork16;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -66,10 +66,15 @@ public class ClientHandler {
     public void readMessages() throws IOException {
         while (true) {
             String strFromClient = in.readUTF();
-            System.out.println("от " + name + ": " + strFromClient);
-            if (strFromClient.equals("/end")) {
-                return;
+
+            if (strFromClient.startsWith("/")){
+
+                if (strFromClient.equals("/end")) {
+                    return;
+                }
+
             }
+
             myServer.broadcastMsg(name + ": " + strFromClient);
         }
     }
