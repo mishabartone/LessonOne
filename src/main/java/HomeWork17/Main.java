@@ -1,13 +1,31 @@
 package HomeWork17;
 
-public class TwoElsOfArray {
+import java.util.ArrayList;
+
+public class Main {
 
     public static void main(String[] args) {
+
+        // 1
         String[] stringArr = {"hey", "hi", "hello"};
         String[] newStringArr = changePlace(stringArr, "hi", "hello");
         for (String s: newStringArr) {
             System.out.println(s);
         }
+
+        System.out.println();
+
+        // 2
+        ArrayList<String> stringList = arrayIntoList(stringArr);
+        for (String s : stringList) {
+            System.out.println(s);
+        }
+
+        System.out.println();
+
+        // 3
+        
+
     }
 
     static String[] changePlace(String[] stringArr, String firstEl, String secondEl) {
@@ -32,6 +50,14 @@ public class TwoElsOfArray {
         }
 
         return stringArr;
+    }
+
+    static ArrayList<String> arrayIntoList(String[] stringArr) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (String s : stringArr) {
+            arrayList.add(s);
+        }
+        return arrayList;
     }
 
 }

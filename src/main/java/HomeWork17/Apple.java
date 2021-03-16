@@ -1,4 +1,4 @@
 package HomeWork17;
 
-public class Apple {
+public class Apple extends Fruit {
 }
