@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class TestConnection {
 
-
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         init();
 
