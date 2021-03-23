@@ -1,14 +1,12 @@
-package HomeWork16.clients;
+package HomeWork19.clients;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -60,31 +58,7 @@ public class firstEchoClient extends JFrame  {
         Thread thread = new Thread(() -> {
             try {
 
-                Calendar c = Calendar.getInstance();
-                c.setTime(new Date()); // Now use today date.
-                c.add(Calendar.SECOND, 120);
-
                 while (true) {
-
-                    Calendar s = Calendar.getInstance();
-                    s.setTime(new Date());
-
-                    new Thread(new Runnable() {
-                        public void run() {
-                            while(!isAuthorized) { //бесконечно крутим
-                                try {
-                                    Thread.sleep(3000); // 3 секунды в милисекундах
-                                    if (c.getTime().compareTo(s.getTime()) == 1 && !isAuthorized){
-                                        closeConnection();
-                                        System.exit(0);
-                                        return;
-                                    }
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }).start();
 
                     String serverMessage = dis.readUTF();
                     if (serverMessage.startsWith("/authok")) {

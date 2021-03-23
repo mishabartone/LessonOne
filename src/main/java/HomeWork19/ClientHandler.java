@@ -1,4 +1,4 @@
-package HomeWork16;
+package HomeWork19;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -32,7 +32,11 @@ public class ClientHandler {
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    closeConnection();
+                    try {
+                        closeConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         } catch (IOException e) {
@@ -52,6 +56,10 @@ public class ClientHandler {
                         name = nick;
                         myServer.broadcastMsg(name + " зашел в чат");
                         myServer.subscribe(this);
+                        String fromFile = myServer.readFile();
+                        if (fromFile.trim().length() != 0) {
+                            sendMsg(fromFile);
+                        }
                         return;
                     } else {
                         sendMsg("Учетная запись уже используется");
@@ -81,13 +89,21 @@ public class ClientHandler {
 
     public void sendMsg(String msg) {
         try {
+            msg = replaceCity(msg);
             out.writeUTF(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void closeConnection() {
+    public String replaceCity(String msg){
+        msg = msg.replace ("спб", "Санкт-Петербург");
+        msg = msg.replace ("мск", "Москва");
+        msg = msg.replace ("птз", "Петрозаводск");
+        return msg;
+    }
+
+    public void closeConnection() throws IOException {
         myServer.unsubscribe(this);
         myServer.broadcastMsg(name + " вышел из чата");
         try {
