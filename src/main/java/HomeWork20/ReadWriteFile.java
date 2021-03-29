@@ -1,6 +1,5 @@
-package HomeWork19;
+package HomeWork20;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface ReadWriteFile {

@@ -1,4 +1,4 @@
-package HomeWork19;
+package HomeWork20;
 
 public interface AuthService {
     void start();
