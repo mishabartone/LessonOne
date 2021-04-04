@@ -1,6 +1,4 @@
-package HomeWork21;
-
-import java.util.logging.Level;
+package HomeWork21.Race;
 
 public class Tunnel extends Stage {
     public Tunnel() {

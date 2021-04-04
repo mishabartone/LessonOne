@@ -1,4 +1,4 @@
-package HomeWork21;
+package HomeWork21.Race;
 
 
 public class RaceStart implements Runnable {

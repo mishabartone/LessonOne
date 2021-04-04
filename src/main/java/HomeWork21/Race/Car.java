@@ -1,10 +1,10 @@
-package HomeWork21;
+package HomeWork21.Race;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
-import static HomeWork21.Main.setInfo;
-import static HomeWork21.Main.setWarning;
+import static HomeWork21.Race.Main.setInfo;
+import static HomeWork21.Race.Main.setWarning;
 
 public class Car implements Runnable {
     private static int CARS_COUNT;

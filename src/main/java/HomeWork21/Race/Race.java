@@ -1,4 +1,4 @@
-package HomeWork21;
+package HomeWork21.Race;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package HomeWork21;
+package HomeWork21.Race;
 
 public abstract class Stage {
     protected int length;

@@ -1,6 +1,4 @@
-package HomeWork21;
-
-import java.util.logging.Level;
+package HomeWork21.Race;
 
 public class Road extends Stage {
     public Road(int length) {
