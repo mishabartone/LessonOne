@@ -3,6 +3,9 @@ package HomeWork21;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
+import static HomeWork21.Main.setInfo;
+import static HomeWork21.Main.setWarning;
+
 public class Car implements Runnable {
     private static int CARS_COUNT;
     private Race race;
@@ -29,17 +32,21 @@ public class Car implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println(this.name + " готовится");
+            setInfo(this.name + " готовится");
+//            System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int)(Math.random() * 800));
-            System.out.println(this.name + " готов");
+            setInfo(this.name + " готов");
+//            System.out.println(this.name + " готов");
             cbStart.await();
         } catch (Exception e) {
-            e.printStackTrace();
+            setWarning(this.name + " не смог подготовиться");
+//            e.printStackTrace();
         }
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
             if ((i == race.getStages().size() - 1) && (!HaveAWinner.isWeHaveAWinner())){
-                System.out.println(this.name + " - WIN!!!");
+                setInfo(this.name + " - WIN!!!");
+//                System.out.println(this.name + " - WIN!!!");
                 HaveAWinner.setWeHaveAWinner(true);
             }
             cdl.countDown();
