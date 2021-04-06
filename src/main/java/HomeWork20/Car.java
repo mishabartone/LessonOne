@@ -1,4 +1,4 @@
-package HomeWork21.Race;
+package HomeWork20;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;

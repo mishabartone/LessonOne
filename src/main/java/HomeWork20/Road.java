@@ -1,4 +1,4 @@
-package HomeWork21.Race;
+package HomeWork20;
 
 public class Road extends Stage {
     public Road(int length) {
